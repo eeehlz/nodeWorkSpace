@@ -14,8 +14,10 @@ router.get('/customers', async (req, res) => {
   res.send(custList);
 });
 //단건조회        : GET + '/customers/:id'
-router.get('/customers:id', (req, res) => {
-
+router.get('/customers/:id', async (req, res) => {
+  let custId = req.params.id;
+  let custInfo = await custService.findById(custId);
+  res.send(custInfo);
 });
 //등록            : POST + '/customers' + JSON(추가할 데이터, body)
 router.post('/customers', (req, res) => {
