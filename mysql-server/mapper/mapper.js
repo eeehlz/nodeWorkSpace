@@ -14,24 +14,30 @@ const connectionPool = mariaDB.createPool({
   permitSetMultiParamEntries: true,
   insertIdAsNumber: true,
   bigIntAsNumber: true,
+  logger: {
+    query: (msg) => console.log(msg),
+    error: (err) => console.log(err),
+  }
 });
 
 const query = (alies, values) => {
-  return new Promise((resolve, reject) => {    //Promise 기억***
-    let executeSql = sqlList[alies];
-    console.log(`sql : ${executeSql}`, values);
-    connectionPool.query(executeSql, values, (err, result) => {
-      if (err) {
-        reject({err});
-      } else {
-        resolve(result);
-      }
+  return new Promise((resolve, reject) => { //Promise 기억***
+      let executeSql = sqlList[alies];
+      // console.log(`sql : ${executeSql}`, values);
+      connectionPool.query(executeSql, values, (err, result) => {
+        if (err) {
+          reject({
+            err
+          });
+        } else {
+          resolve(result);
+        }
+      });
+    })
+    .catch(err => {
+      console.log(err);
+      return err;
     });
-  })
-  .catch(err =>{
-    console.log(err);
-    return err;
-  });
 }
 module.exports = {
   query,

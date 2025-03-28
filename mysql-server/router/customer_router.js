@@ -20,14 +20,23 @@ router.get('/customers/:id', async (req, res) => {
   res.send(custInfo);
 });
 //등록            : POST + '/customers' + JSON(추가할 데이터, body)
-router.post('/customers', (req, res) => {
-
+router.post('/customers', async (req, res) => {
+  let addCust = req.body;
+  let result = await custService.addCustomer(addCust);
+  res.send(result);
 });
 //수정            : PUT + '/customers/:id + JSON'
-router.put('/customers:id', (res, req) => {
-
+router.put('/customers/:id', async (req, res) => {
+  let custId = req.params.id;
+  let custUpInfo = req.body;
+  let result = await custService.modifyCustomerInfo(custUpInfo, custId);
+  res.send(result);
 });
 //삭제            : DELETE + '/customers/:id'
-router.delete('/customers:id', (res, req) => {
-
+router.delete('/customers/:id', async(req, res) => {
+  let custId = req.params.id;
+  let result = await custService.removeCustomerInfo(custId);
+  res.send(result);
 });
+
+module.exports = router;
