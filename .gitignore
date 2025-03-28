@@ -1,0 +1,6 @@
+### gitignore ###
+
+### Node.js ###
+*.env
+node_modules
+package-lock.json
