@@ -1,7 +1,7 @@
 const mariaDB = require("../mapper/mapper.js")
 
 const findAll = async () => {
-    let list = mariaDB.query("selectAll");
+    let list =  await mariaDB.query("selectAll");
     return list;
 };
 
