@@ -13,6 +13,7 @@ const selectById =
 		  ,name
       ,phone
       ,address
+      ,email
 from customers
 where id = ?`;  //단일값  // ? 는 다른값으로 대체된다 는 뜻
 
